@@ -39,6 +39,14 @@ The first commit in this repo is that copy, unchanged apart from the files liste
 
 Each entry says what we changed and why, so it can be re-applied to a new upstream version whose wording has moved.
 
+### 1. Cross-skill calls use plugin-qualified names
+
+**What:** Every place one skill calls another uses its `mp-good:` name: "Call the Skill tool with "mp-good:grilling"", "the `/mp-good:codebase-design` skill", and so on.
+
+**Why:** Upstream's `mattpocock-skills` plugin may be installed alongside this one, with skills of the same names. A bare name like "grilling" could load upstream's version, and our changes would silently not apply.
+
+**When syncing:** Qualify any new cross-skill call that upstream adds.
+
 ## Sync history
 
 - 2026-11-03: initial copy at `4ae2317`.
