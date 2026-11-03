@@ -6,7 +6,7 @@ The skills in this plugin were copied from [mattpocock/skills](https://github.co
 
 Copied from upstream commit `4ae2317ddb22b046e26455e4f9c9b3aaaf62212d` (2026-10-31, plugin version 1.3.2).
 
-The first commit in this repo is that copy, unchanged apart from the files listed under "Not copied". Every later commit is one of our changes, so `git diff` from that first commit shows everything we've changed.
+The first commit in this repo is that copy, unchanged apart from the files listed under "Not copied", plus this plugin's own files (`README.md`, `UPSTREAM.md`, `.claude-plugin/`, `.gitignore`). Later commits are either our changes or syncs from upstream (see "Sync history"), so `git diff` from that first commit shows how our copy differs from the baseline.
 
 ## Where each skill came from
 
@@ -46,6 +46,14 @@ Each entry says what we changed and why, so it can be re-applied to a new upstre
 **Why:** Upstream's `mattpocock-skills` plugin may be installed alongside this one, with skills of the same names. A bare name like "grilling" could load upstream's version, and our changes would silently not apply.
 
 **When syncing:** Qualify any new cross-skill call that upstream adds.
+
+### 2. Wayfinder keeps its map in markdown files, not an issue tracker
+
+**What:** `wayfinder` no longer uses an issue tracker or the per-repo `docs/agents/issue-tracker.md` that upstream's `setup-matt-pocock-skills` writes. A map is a folder with `map.md` and a `tickets/` subfolder of `NN-<slug>.md` files. Each ticket has `Type:`, `Status:` (`open` / `claimed` / `resolved` / `out-of-scope`) and `Blocked by:` lines, and the answer is appended under `## Answer`. This is based on upstream's local-markdown "Wayfinding operations" (in `setup-matt-pocock-skills/issue-tracker-local.md`), folded into the skill. Where the folder goes is decided at charting time: a location named in the repo's `CLAUDE.md` / `AGENTS.md`, otherwise ask the user (suggesting `.scratch/<effort>/` when the repo has one; a temp folder is allowed, with a warning).
+
+**Why:** So the skill works in any repo without a setup step. Where planning files belong varies by repo, so the skill asks rather than assuming.
+
+**When syncing:** Translate upstream changes to tracker operations (map, child tickets, labels, claiming, blocking, frontier, resolving) into their file equivalents. Check upstream's `issue-tracker-local.md` "Wayfinding operations" for changes worth bringing in. Ignore changes to the GitHub/GitLab tracker docs.
 
 ## Sync history
 
