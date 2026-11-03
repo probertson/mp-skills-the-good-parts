@@ -1,10 +1,10 @@
 ---
 name: wayfinder
-description: Plan a huge chunk of work (more than one agent session can hold) as a map of decision tickets kept in markdown files, and resolve them one at a time until the way to the destination is clear.
+description: Plan a large, foggy chunk of work (too many open decisions to settle in one go) as a map of decision tickets kept in markdown files, and resolve them one at a time until the way to the destination is clear.
 disable-model-invocation: true
 ---
 
-A loose idea has arrived, too big for one agent session, and wrapped in fog: the way from here to the **destination** isn't visible yet. Wayfinding is about finding that way, not charging at the destination. This skill charts the way as a **map**, a folder of markdown files, then works its **decision tickets** (questions whose resolution is a decision, not slices of a build to execute) one at a time until the route is clear.
+A loose idea has arrived, too big to decide in one go, and wrapped in fog: the way from here to the **destination** isn't visible yet. Wayfinding is about finding that way, not charging at the destination. This skill charts the way as a **map**, a folder of markdown files, then works its **decision tickets** (questions whose resolution is a decision, not slices of a build to execute) one at a time until the route is clear.
 
 The destination varies per effort, and naming it is the first act of charting: it shapes every ticket. It might be a spec to hand off and iterate on, a decision to lock before planning starts, or a change made in place like a data-structure migration. The map is domain-agnostic: engineering work, course content, whatever fits the shape.
 
@@ -65,7 +65,7 @@ The whole map at low resolution, loaded once per session. Open tickets are **not
 
 ### Tickets
 
-Each ticket is a file in the map's `tickets/` folder, named `NN-<slug>.md` and numbered from `01` in the order created; the number is its identity. Its body is the question, sized to one 100K token agent session:
+Each ticket is a file in the map's `tickets/` folder, named `NN-<slug>.md` and numbered from `01` in the order created; the number is its identity. Its body is the question, sized to one decision:
 
 ```markdown
 # <ticket title>
@@ -121,19 +121,19 @@ Ruling something out of scope is a scoping act, not a step on the route. When a 
 
 ## Invocation
 
-Two modes. Either way, **never resolve more than one ticket per session**, with the exception of research tickets.
+Two modes.
 
 ### Chart the map
 
 User invokes with a loose idea.
 
 1. **Name the destination.** Call the Skill tool twice, for "mp-good:grilling" and "mp-good:domain-modeling", to pin down what this map is finding its way to: the spec, decision, or change. The destination fixes the scope, so it's settled first.
-2. **Map the frontier.** Grill again, **breadth-first** this time: fan out across the whole space rather than deep on any one thread, surfacing the open decisions and the first steps takeable now. **If this surfaces no fog** (the way to the destination is already clear, the whole journey small enough for one session), you don't need a map. Stop and ask the user how they'd like to proceed.
+2. **Map the frontier.** Grill again, **breadth-first** this time: fan out across the whole space rather than deep on any one thread, surfacing the open decisions and the first steps takeable now. **If this surfaces no fog** (the way to the destination is already clear, with no open decisions that hang on other decisions), you don't need a map. Stop and ask the user how they'd like to proceed.
 3. **Create the map**: choose its folder (see [Where the map lives](#where-the-map-lives)) and write `map.md`, with Destination and Notes filled in, Decisions-so-far empty, the fog sketched into **Not yet specified**.
 4. **Create the tickets you can specify now** as files in `tickets/`, each with its `Blocked by:` line. The `Blocked by:` lines sort them into the frontier and the blocked; everything you can't yet specify stays in the fog: the **Not yet specified** section.
 5. **Fire the research subagents.** For each `research` ticket you just created, spin up a subagent with a fresh context window that calls the Skill tool with "mp-good:research" to resolve it in parallel. Give each subagent the path to its ticket file and tell it to claim the ticket first (`Status: claimed`), then append its answer under `## Answer` and set `Status: resolved`, as in [Work through the map](#work-through-the-map); subagents don't edit `map.md`. It captures its findings on a throwaway `research/<name>` branch with a context pointer from the ticket. Push the branch but open no PR: it is never merged.
 6. As research subagents report back, append each one's context pointer to the map's Decisions-so-far yourself.
-7. Stop: charting is one session's work; it hand-resolves nothing. The last thing you print is the full path to `map.md`.
+7. Print the full path to `map.md`, then offer to start working through the map, beginning with the first frontier ticket.
 
 ### Work through the map
 
@@ -144,5 +144,6 @@ User invokes with a map (the path to its folder or its `map.md`). A ticket is **
 3. Resolve it as the type its `Type:` line names (see [Ticket Types](#ticket-types)). **Zoom as needed**: read the full file of any related or closed ticket on demand; call the Skill tool for whichever skills the `## Notes` block names. If in doubt, call the Skill tool twice, for "mp-good:grilling" and "mp-good:domain-modeling".
 4. Record the resolution: append the answer to the ticket under an `## Answer` heading, set `Status: resolved`, and **append a context pointer** to the map's Decisions-so-far.
 5. Add newly-surfaced tickets, numbered after the highest existing one; graduate any fog the answer has made specifiable, clearing each graduated patch from **Not yet specified** so it lives only as its new ticket. If the answer reveals that a ticket (this one or another) sits beyond the destination, **rule it out of scope** rather than resolving it on the route. If the decision invalidates other parts of the map, update or delete those tickets.
+6. Go back to step 2 and take the first frontier ticket in order (a ticket the user named applies only to the first pass). Stop when the user says to, or when the frontier is empty. If it's empty, tell the user why: the map is complete, or the remaining tickets are blocked, claimed by another session, or still fog.
 
 The user may run unblocked tickets in parallel, so expect other sessions to be editing the map's files concurrently.

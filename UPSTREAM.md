@@ -55,6 +55,14 @@ Each entry says what we changed and why, so it can be re-applied to a new upstre
 
 **When syncing:** Translate upstream changes to tracker operations (map, child tickets, labels, claiming, blocking, frontier, resolving) into their file equivalents. Check upstream's `issue-tracker-local.md` "Wayfinding operations" for changes worth bringing in. Ignore changes to the GitHub/GitLab tracker docs.
 
+### 3. Wayfinder doesn't assume an effort outgrows one session
+
+**What:** Removed upstream's premise that a map exists because the work is "more than one agent session can hold". The description and opening say the work is too big or foggy to decide in one go. Tickets are sized to one decision, not "one 100K token agent session". The "never resolve more than one ticket per session" rule is gone, and "Work through the map" loops back to the next frontier ticket until the user stops or the frontier is empty. Charting ends by printing the map path and offering to start on the first frontier ticket, instead of "charting is one session's work". The "you don't need a map" exit now depends on whether there's real fog, not on session size.
+
+**Why:** Upstream's view of agent context size is more conservative than ours. We don't want agents stopping or suggesting compaction between tickets. The map is valuable for structuring decisions, not for working around context limits. Maps can still be resumed in a later session or worked in parallel, so wording about sessions in general (claiming, concurrent edits, "loaded once per session") stays.
+
+**When syncing:** Watch for new wording that ties tickets, steps or stopping points to session or context size, and drop it. Fresh-context subagents used for parallelism (research, fact-finding) are fine to keep.
+
 ## Sync history
 
 - 2026-11-03: initial copy at `4ae2317`.
