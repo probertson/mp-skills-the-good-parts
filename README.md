@@ -15,7 +15,7 @@ Called by the skills above (and usable on their own): `grilling`, `codebase-desi
 ## Install
 
 ```
-/plugin marketplace add <path-or-url-to-this-repo>
+/plugin marketplace add probertson/mp-skills-the-good-parts
 /plugin install mp-good@mp-good
 ```
 
