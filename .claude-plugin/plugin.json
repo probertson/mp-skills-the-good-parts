@@ -1,0 +1,19 @@
+{
+  "name": "mp-good",
+  "version": "0.1.0",
+  "description": "A trimmed, adapted subset of Matt Pocock's skills (mattpocock/skills): grill-me, improve-codebase-architecture and wayfinder, plus the skills they call. Self-contained; no per-repo setup.",
+  "author": {
+    "name": "Paul Robertson"
+  },
+  "license": "MIT",
+  "skills": [
+    "./skills/grill-me",
+    "./skills/grilling",
+    "./skills/improve-codebase-architecture",
+    "./skills/codebase-design",
+    "./skills/domain-modeling",
+    "./skills/wayfinder",
+    "./skills/research",
+    "./skills/prototype"
+  ]
+}

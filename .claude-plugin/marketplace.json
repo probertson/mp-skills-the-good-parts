@@ -1,0 +1,13 @@
+{
+  "name": "mp-good",
+  "owner": {
+    "name": "Paul Robertson"
+  },
+  "plugins": [
+    {
+      "name": "mp-good",
+      "source": "./",
+      "description": "A trimmed, adapted subset of Matt Pocock's skills (mattpocock/skills): grill-me, improve-codebase-architecture and wayfinder, plus the skills they call. Self-contained; no per-repo setup."
+    }
+  ]
+}
