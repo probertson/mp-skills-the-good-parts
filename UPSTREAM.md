@@ -63,6 +63,14 @@ Each entry says what we changed and why, so it can be re-applied to a new upstre
 
 **When syncing:** Watch for new wording that ties tickets, steps or stopping points to session or context size, and drop it. Fresh-context subagents used for parallelism (research, fact-finding) are fine to keep.
 
+### 4. Grilling asks one question at a time, after the facts are in
+
+**What:** `grilling` no longer asks "the whole frontier in one round" as a numbered list. It asks one question per message, the one on the frontier whose answer unblocks the most, with a recommended answer, and the question is the last thing in the message. It no longer asks questions while a fact-finding lookup is still running ("Don't block on it"). It finishes the lookup, recomputes the frontier, then asks. The design tree, frontier, recommended answers, "yes accepts the recommendation", "finding facts is your job", and "confirm shared understanding before acting" are kept. This also applies to `grill-me`, `improve-codebase-architecture` and `wayfinder`, which all use `grilling`; `wayfinder`'s breadth-first charting step notes that breadth-first sets the order of questions, not how many are asked at once.
+
+**Why:** Several questions at once are hard to follow, especially when the user replies to one with a question or a longer answer of their own. Questions asked while a lookup is running often come back reframed by its result, which wastes the user's attention.
+
+**When syncing:** Keep one question per message and facts-before-questions. Bring in other upstream improvements to how the tree or frontier is worked, translating any "round" or batch wording into single questions.
+
 ## Sync history
 
 - 2026-11-03: initial copy at `4ae2317`.
