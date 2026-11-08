@@ -9,6 +9,9 @@ User-invoked:
 - `/mp-good:grill-me`: a relentless interview to sharpen a plan or design.
 - `/mp-good:improve-codebase-architecture`: scan a codebase for deepening opportunities, present them as an HTML report, then grill through the one you pick.
 - `/mp-good:wayfinder`: chart a large, foggy effort as a map of decision tickets, then resolve them one at a time.
+- `/mp-good:implement-spec`: implement a spec and its tickets on an integration branch, one subagent per ticket.
+
+Also usable directly: `/mp-good:tdd`, the reference for test-driven development.
 
 Called by the skills above (and usable on their own): `grilling`, `codebase-design`, `domain-modeling`, `research`, `prototype`.
 

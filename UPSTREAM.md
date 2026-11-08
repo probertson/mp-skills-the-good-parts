@@ -6,7 +6,7 @@ The skills in this plugin were copied from [mattpocock/skills](https://github.co
 
 Copied from upstream commit `4ae2317ddb22b046e26455e4f9c9b3aaaf62212d` (2026-10-31, plugin version 1.3.2).
 
-The first commit in this repo is that copy, unchanged apart from the files listed under "Not copied", plus this plugin's own files (`README.md`, `UPSTREAM.md`, `.claude-plugin/`, `.gitignore`). Later commits are either our changes or syncs from upstream (see "Sync history"), so `git diff` from that first commit shows how our copy differs from the baseline.
+The first commit in this repo is that copy, unchanged apart from the files listed under "Not copied", plus this plugin's own files (`README.md`, `UPSTREAM.md`, `.claude-plugin/`, `.gitignore`). Later commits are either our changes or syncs from upstream (see "Sync history"), so `git diff` from that first commit shows how our copy differs from the baseline. Skills added later were each copied unchanged in a commit of their own before being changed (see "Sync history"), so for those, diff from that copy commit.
 
 ## Where each skill came from
 
@@ -16,9 +16,11 @@ The first commit in this repo is that copy, unchanged apart from the files liste
 | `skills/domain-modeling/` | `skills/engineering/domain-modeling/` |
 | `skills/grill-me/` | `skills/productivity/grill-me/` |
 | `skills/grilling/` | `skills/productivity/grilling/` |
+| `skills/implement-spec/` | `skills/engineering/implement-spec/` |
 | `skills/improve-codebase-architecture/` | `skills/engineering/improve-codebase-architecture/` |
 | `skills/prototype/` | `skills/engineering/prototype/` |
 | `skills/research/` | `skills/engineering/research/` |
+| `skills/tdd/` | `skills/engineering/tdd/` |
 | `skills/wayfinder/` | `skills/engineering/wayfinder/` |
 
 `LICENSE` is upstream's, unchanged.
@@ -74,3 +76,4 @@ Each entry says what we changed and why, so it can be re-applied to a new upstre
 ## Sync history
 
 - 2026-11-03: initial copy at `4ae2317`.
+- 2026-11-07: added `tdd` and `implement-spec`, also copied at `4ae2317`.
