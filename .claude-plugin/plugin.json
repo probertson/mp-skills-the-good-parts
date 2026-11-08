@@ -1,6 +1,6 @@
 {
   "name": "mp-good",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A trimmed, adapted subset of Matt Pocock's skills (mattpocock/skills): grill-me, improve-codebase-architecture, wayfinder, tdd and implement-spec, plus the skills they call. No per-repo setup; implement-spec also needs the probertson-review plugin.",
   "author": {
     "name": "Paul Robertson"
