@@ -23,6 +23,8 @@ A **seam** is the public boundary you test at: the interface where you observe b
 
 Ask: "What's the public interface, and which seams should we test?" Give each proposed seam a one-line note on what it catches and what it misses.
 
+If you were handed seams the user already confirmed (for example, by `mp-good:implement-spec`), those are your confirmed seams: don't ask again. If you find you need a seam that isn't on that list, don't test there; stop and report it to whoever handed you the list, so they can confirm it with the user.
+
 When the shape of that interface is itself in question (how deep the module is, where the seam belongs, what the interface should expose), call the Skill tool with "mp-good:codebase-design" for the vocabulary. It is the shared source of the module, interface, depth, seam, adapter, leverage and locality terms, and it is a reference to consult, not a session to run.
 
 ## Anti-patterns

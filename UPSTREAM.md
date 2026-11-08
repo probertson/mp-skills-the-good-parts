@@ -83,11 +83,19 @@ Each entry says what we changed and why, so it can be re-applied to a new upstre
 
 ### 6. tdd and implement-spec use our reviewer
 
-**What:** `implement-spec` step 7 reviews the integration branch with `probertson-review:self-review` (from the `probertson-review` plugin in [probertson/skills](https://github.com/probertson/skills)), in a checkout with no uncommitted changes, handing it the spec to review against and the base branch to diff from, instead of upstream's `code-review`. Step 1 checks that the skill is installed and stops before any work if it isn't. `tdd`'s note that refactoring belongs to the review stage points at the same skill.
+**What:** `implement-spec`'s final review step (step 8) reviews the integration branch with `probertson-review:self-review` (from the `probertson-review` plugin in [probertson/skills](https://github.com/probertson/skills)), in a checkout with no uncommitted changes, handing it the spec to review against and the base branch to diff from, instead of upstream's `code-review`. Step 1 checks that the skill is installed and stops before any work if it isn't. `tdd`'s note that refactoring belongs to the review stage points at the same skill.
 
 **Why:** We prefer our own review standards to upstream's `code-review`. The step stays, rather than relying on per-commit reviews, because it reviews the whole integration branch, which catches problems that only show up across tickets.
 
 **When syncing:** Keep the review step pointed at `probertson-review:self-review`. If upstream changes what the review step does (for example, what happens to its findings), bring that in.
+
+### 7. implement-spec confirms test seams up front
+
+**What:** `implement-spec` has a new step 3, before any implementer starts: for each ticket it proposes the seams under test (the way `tdd` describes) and gets the user's confirmation, one ticket at a time. The confirmed seams are saved to a notes file outside the repo, and every implementer's brief points at it, including the final review-fix implementer. If an implementer reports it needs an unconfirmed seam, that isn't completion: the orchestrator asks the user, adds the answer to the file, and continues that implementer. Later steps were renumbered. `tdd` says that seams handed to it as already confirmed don't need asking again, and that it should stop and report a new seam rather than test there.
+
+**Why:** Upstream `tdd` writes no test at a seam the user hasn't confirmed, but upstream `implement-spec` runs `tdd` in background subagents that can't ask the user, so each one would either stall or break that rule.
+
+**When syncing:** Check whether upstream `tdd` still requires user-confirmed seams and whether upstream `implement-spec` now supplies them. If upstream resolves the conflict its own way, compare it with this one and pick one. Keep step references in `implement-spec` correct if upstream adds or removes steps.
 
 ## Sync history
 
