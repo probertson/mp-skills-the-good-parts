@@ -23,7 +23,7 @@ The first commit in this repo is that copy, unchanged apart from the files liste
 | `skills/tdd/` | `skills/engineering/tdd/` |
 | `skills/wayfinder/` | `skills/engineering/wayfinder/` |
 
-`LICENSE` is upstream's, unchanged.
+`LICENSE` is upstream's MIT license, with H. Paul Robertson added as a copyright holder alongside Matt Pocock. If upstream changes its LICENSE (for example, the year), bring that in and keep our addition.
 
 ### Not copied
 
