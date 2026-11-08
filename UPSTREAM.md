@@ -97,6 +97,14 @@ Each entry says what we changed and why, so it can be re-applied to a new upstre
 
 **When syncing:** Check whether upstream `tdd` still requires user-confirmed seams and whether upstream `implement-spec` now supplies them. If upstream resolves the conflict its own way, compare it with this one and pick one. Keep step references in `implement-spec` correct if upstream adds or removes steps.
 
+### 8. implement-spec leaves optional review findings to the user
+
+**What:** After the final review (step 8), the fix implementer fixes only the must-fix and recommended findings. The optional ones are listed in the final report (step 9) for the user to decide on. Upstream fixes "all issues raised by the code review".
+
+**Why:** `probertson-review:self-review` ranks findings as must-fix, recommended or optional polish. Applying every optional nitpick across a whole multi-ticket branch adds churn the user didn't ask for.
+
+**When syncing:** If upstream changes how review findings are handled, keep this split unless the reviewer no longer ranks its findings.
+
 ## Sync history
 
 - 2026-11-03: initial copy at `4ae2317`.

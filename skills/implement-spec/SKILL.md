@@ -40,8 +40,8 @@ Communication to and from subagents should be sparse. Communicate primarily thro
 
 7. If this changes the **frontier** of available tickets, kick off more **implementer subagents** to work on the new tickets. This allows for maximum concurrency.
 
-8. Once all tickets are complete, call the Skill tool with "probertson-review:self-review" on the integration branch, in a checkout with no uncommitted changes, handing it the spec (with its source) to review against and the base branch to diff the integration branch from. Fix all issues raised by the review in a single fresh **implementer subagent**, pointed at the confirmed-seams file like the others; if a fix needs a new seam, handle it as in step 5.
+8. Once all tickets are complete, call the Skill tool with "probertson-review:self-review" on the integration branch, in a checkout with no uncommitted changes, handing it the spec (with its source) to review against and the base branch to diff the integration branch from. Fix the review's must-fix and recommended findings in a single fresh **implementer subagent**, pointed at the confirmed-seams file like the others; if a fix needs a new seam, handle it as in step 5. Don't fix the optional findings; keep them for the final report.
 
-9. If a draft PR exists, mark it ready for review. Otherwise, resolve each ticket the way the issue tracker closes work, and report the integration branch.
+9. If a draft PR exists, mark it ready for review. Otherwise, resolve each ticket the way the issue tracker closes work, and report the integration branch. Either way, list the review's optional findings for the user to decide on.
 
 10. Clean up all **implementer subagent** worktrees.
