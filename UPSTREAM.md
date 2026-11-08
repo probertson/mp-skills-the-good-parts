@@ -28,7 +28,7 @@ The first commit in this repo is that copy, unchanged apart from the files liste
 ### Not copied
 
 - Every skill's `agents/openai.yaml` (OpenAI agent metadata; not used by Claude Code).
-- `skills/engineering/setup-matt-pocock-skills/`. Its "Wayfinding operations" for local markdown files were folded into `wayfinder` (see Changes below); nothing else here needs it.
+- `skills/engineering/setup-matt-pocock-skills/`. Its "Wayfinding operations" for local markdown files were folded into `wayfinder` (see Changes below). `implement-spec` reads the `docs/agents/issue-tracker.md` it writes when a repo already has one, but doesn't require it.
 
 ## Bringing in upstream changes
 
@@ -47,7 +47,7 @@ Each entry says what we changed and why, so it can be re-applied to a new upstre
 
 **Why:** Upstream's `mattpocock-skills` plugin may be installed alongside this one, with skills of the same names. A bare name like "grilling" could load upstream's version, and our changes would silently not apply.
 
-**When syncing:** Qualify any new cross-skill call that upstream adds.
+**When syncing:** Qualify any new cross-skill call that upstream adds. (`tdd` and `implement-spec` got the same treatment when they were added.)
 
 ### 2. Wayfinder keeps its map in markdown files, not an issue tracker
 
@@ -72,6 +72,22 @@ Each entry says what we changed and why, so it can be re-applied to a new upstre
 **Why:** Several questions at once are hard to follow, especially when the user replies to one with a question or a longer answer of their own. Questions asked while a lookup is running often come back reframed by its result, which wastes the user's attention.
 
 **When syncing:** Keep one question per message and facts-before-questions. Bring in other upstream improvements to how the tree or frontier is worked, translating any "round" or batch wording into single questions.
+
+### 5. implement-spec works without the setup skill
+
+**What:** `implement-spec` no longer tells the user to run `/setup-matt-pocock-skills` when no tracker is configured. Its opening says the spec may be a `.scratch/<feature>/` folder or a tracker issue. If the repo has a `docs/agents/issue-tracker.md` (written by upstream's setup skill), it follows that for reading the spec and tickets, blocking, and closing work. If not, or if the doc doesn't say how something works for a spec's tickets, it asks the user. Its description says "a spec and its tickets, on one integration branch, with a subagent per ticket" instead of "the result of /to-spec and /to-tickets", since we don't have those skills.
+
+**Why:** The repos we use it in already have upstream's tracker docs (local markdown in `.scratch/`, or GitHub issues), so following them works; we just don't want the skill to require the setup step or the spec-writing skills.
+
+**When syncing:** Bring in upstream changes to the implementation flow. Where upstream adds new references to `/to-spec`, `/to-tickets` or the setup skill, make them optional in the same way.
+
+### 6. tdd and implement-spec use our reviewer
+
+**What:** `implement-spec` step 7 reviews the integration branch with `probertson-review:self-review` (from the `probertson-review` plugin in [probertson/skills](https://github.com/probertson/skills)), in a checkout with no uncommitted changes, handing it the spec to review against and the base branch to diff from, instead of upstream's `code-review`. Step 1 checks that the skill is installed and stops before any work if it isn't. `tdd`'s note that refactoring belongs to the review stage points at the same skill.
+
+**Why:** We prefer our own review standards to upstream's `code-review`. The step stays, rather than relying on per-commit reviews, because it reviews the whole integration branch, which catches problems that only show up across tickets.
+
+**When syncing:** Keep the review step pointed at `probertson-review:self-review`. If upstream changes what the review step does (for example, what happens to its findings), bring that in.
 
 ## Sync history
 
